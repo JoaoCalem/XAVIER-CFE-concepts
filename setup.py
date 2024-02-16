@@ -8,6 +8,8 @@ with open('requirements.txt') as f:
 requirements = [x.strip() for x in content]
 
 setup(name='xavierconcepts',
-      description="Reproduction of Paper: Grounding Counterfactual Explanation of Image Classifiers to Textual Concept Space",
-      packages=find_packages(), # NEW: find packages automatically
-      install_requires=requirements) # NEW
+    description="Reproduction of Paper: Grounding Counterfactual Explanation of Image Classifiers to Textual Concept Space",
+    packages=find_packages(),
+    package_data={'xavierconcepts': ['concepts/']},
+    include_package_data=True,
+    install_requires=requirements)
