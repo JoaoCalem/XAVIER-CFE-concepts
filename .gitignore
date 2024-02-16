@@ -1,5 +1,5 @@
 *.egg-info
 *.ipynb
 *.pt
-models/*.*
+xavierconcepts/models/*.*
 **/__pycache__/

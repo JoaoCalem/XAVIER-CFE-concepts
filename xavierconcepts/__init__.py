@@ -12,7 +12,6 @@ from xavierconcepts.VClip import VClip
 from xavierconcepts.ConceptClip import ConceptClip
 
 path = Path(__file__).parent
-print(path)
 
 device = (
     "cuda"
