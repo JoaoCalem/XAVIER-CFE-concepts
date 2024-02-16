@@ -11,7 +11,7 @@ device = (
 )
 
 class ClipClassifier(nn.Module):
-    def __init__(self, clip_model="ViT-B/32"):
+    def __init__(self, clip_model="ViT-B/32",device=device):
         super().__init__()
         model, _ = clip.load(clip_model, device=device)
         self.dtype = model.dtype
