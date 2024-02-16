@@ -1,5 +1,21 @@
 # XAVIER-CFE-concepts
-Reproduction of Paper: Grounding Counterfactual Explanation of Image Classifiers to Textual Concept Space
+
+## Setup
+```
+pip install git+https://github.com/JoaoCalem/XAVIER-CFE-concepts
+```
+
+## Example Code
+
+```
+import xavierconcepts
+df = xavierconcepts.getConcepts('path-to-download-files')
+```
+
+```
+import xavierconcepts
+df = xavierconcepts.getConcepts('path-to-download-files', target=1, v_clip_name='c_texture')
+```
 
 
 ## Reference to Paper
