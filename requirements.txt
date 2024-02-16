@@ -1,0 +1,4 @@
+clip @ git+https://github.com/openai/CLIP.git
+pandas
+numpy
+gdown
