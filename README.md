@@ -12,6 +12,8 @@ import xavierconcepts
 df = xavierconcepts.getConcepts('path-where-files-will-be-downloaded-to')
 ```
 
+### Other Examples
+
 ```
 df = xavierconcepts.getConcepts('.', target=1, v_clip_name='c_texture')
 ```
