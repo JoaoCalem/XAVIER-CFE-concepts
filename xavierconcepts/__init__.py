@@ -11,7 +11,7 @@ from xavierconcepts.ClipClassifier import ClipClassifier
 from xavierconcepts.VClip import VClip
 from xavierconcepts.ConceptClip import ConceptClip
 
-path = Path(__file__).parent.parent
+path = Path(__file__).parent
 
 device = (
     "cuda"
