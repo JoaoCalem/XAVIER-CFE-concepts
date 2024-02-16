@@ -11,8 +11,6 @@ from xavierconcepts.ClipClassifier import ClipClassifier
 from xavierconcepts.VClip import VClip
 from xavierconcepts.ConceptClip import ConceptClip
 
-path = Path(__file__).parent
-
 device = (
     "cuda"
     if torch.cuda.is_available()
@@ -59,21 +57,24 @@ classes = [
     "Ankle boot",
 ]
 
-def getClassifier():
-    
+def getClassifier(path):
     print('Loading CLIP Classification Model')
     if not os.path.exists(os.path.join(path,'models')):
         os.mkdir(os.path.join(path,'models'))
     if not os.path.exists(os.path.join(path,'models','model.pth')):
         print('Downloading Classifier from Google Drive')
-        url = 'https://drive.google.com/file/d/1-zF8AKHzgCFpNopBZ1w9T3QxhxHqtXV2/'
         gdown.download(id='1-zF8AKHzgCFpNopBZ1w9T3QxhxHqtXV2', output=os.path.join(path,'models','model.pth'))
     model = ClipClassifier().to(device)
     model.load_state_dict(torch.load(os.path.join(path,'models','model.pth')))
     return model
 
-def getVClip(name='label', clip_model="ViT-B/32"):
-    labels = pd.read_csv(os.path.join(path,'concepts',f'{name}.csv')).name.map(lambda x: x.split('-')[0])
+def getVClip(path, name='label', clip_model="ViT-B/32"):
+    if not os.path.exists(os.path.join(path,'concepts')):
+        os.mkdir(os.path.join(path,'concepts'))
+        print('Downloading Concept CSV files')
+        gdown.download_folder(id='1AJ-yMNOtW1ZLKjfT0uwvlBxY1Ebsu1mC', output=os.path.join(path,'concepts'))
+    csvfilename = os.path.join(path,'concepts',f'{name}.csv')
+    labels = pd.read_csv(csvfilename).name.map(lambda x: x.split('-')[0])
     vclipfile = os.path.join(path,'concepts',f'v_clip_{name}.pt')
     if not os.path.exists(vclipfile):
         print('Calculating VCLIP')
@@ -85,12 +86,14 @@ def getVClip(name='label', clip_model="ViT-B/32"):
 
     return labels, v_clip
 
-def getConcepts(x=x, target=9, classifier = getClassifier(), classes=classes,
+def getConcepts(download_path, x=x, target=9, classifier = 'default', classes=classes,
                 v_clip_name = 'label', alpha=0.1, device=device):
     
+    if classifier=='default':
+        classifier = getClassifier(download_path)
     embedding = classifier.clip(x.unsqueeze(0))
     
-    labels, v_clip = getVClip(v_clip_name)
+    labels, v_clip = getVClip(download_path, v_clip_name)
     
     model=ConceptClip(embedding, v_clip, classifier).to(device)
     

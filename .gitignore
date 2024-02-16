@@ -3,3 +3,4 @@
 *.pt
 xavierconcepts/models/*.*
 **/__pycache__/
+build/
